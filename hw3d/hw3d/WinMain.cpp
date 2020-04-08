@@ -1,4 +1,5 @@
-#include <Windows.h>
+ #include <Windows.h>
+#include <sstream>
 #include "WindowsMessageMap.h"
 
 const auto pClassName = "Hw3dClass";
@@ -26,6 +27,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			SetWindowText(hWnd, pWindowName);
 		}
 		break;
+	case WM_CHAR:
+		{
+			static std::string title;
+			title.push_back(wParam);
+			SetWindowText(hWnd, title.c_str());
+		}
+		break;
+	case WM_LBUTTONDOWN:
+	{
+		POINTS pt = MAKEPOINTS(lParam);
+		std::ostringstream oss;
+		oss << "(" << pt.x << "," << pt.y << ")";
+		SetWindowText(hWnd, oss.str().c_str());
+	}
+	break;
 	default:
 		break;
 	}
