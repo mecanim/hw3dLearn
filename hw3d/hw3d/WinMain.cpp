@@ -13,6 +13,10 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+			if (wnd.kbd.KeyIsPressed(VK_MENU))
+			{
+				MessageBox(nullptr, "Сообщение", "Нажата клавиша Alt.", MB_OKCANCEL);
+			}
 		}
 
 		if (gResult == -1)
