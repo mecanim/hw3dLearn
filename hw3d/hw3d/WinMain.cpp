@@ -1,28 +1,12 @@
 #include "Window.h"
 #include "Exception.h"
+#include "App.h"
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	try
 	{
-		Window wnd(800, 300, "Engine");
-
-		MSG msg;
-		BOOL gResult;
-		while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-			if (wnd.kbd.KeyIsPressed(VK_MENU))
-			{
-				MessageBox(nullptr, "Сообщение", "Нажата клавиша Alt.", MB_OKCANCEL);
-			}
-		}
-
-		if (gResult == -1)
-		{
-			return -1;
-		}
+		return App{}.Go();
 	}
 	catch (const EngineException& e)
 	{
