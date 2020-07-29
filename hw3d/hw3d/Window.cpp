@@ -61,6 +61,8 @@ Window::Window(int width, int height, const char* name) noexcept
 		CW_USEDEFAULT, CW_USEDEFAULT, wr.right - wr.left, wr.bottom - wr.top, nullptr, nullptr, WindowClass::GetInstance(), this
 	);
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
+
+	pGfx = std::make_unique<Graphics>(hWnd);
 }
 
 Window::~Window()
@@ -118,6 +120,11 @@ std::optional<int> Window::ProcessMessages()
 	}
 
 	return {};
+}
+
+Graphics& Window::Gfx()
+{
+	return *pGfx;
 }
 
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
